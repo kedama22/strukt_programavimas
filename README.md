@@ -1,1 +1,2 @@
 # strukt_programavimas
+# aaa
