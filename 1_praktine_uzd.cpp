@@ -5,7 +5,7 @@ using namespace std;
 struct GBP {
 const double GBP_Bendras=0.8729;
 const double GBP_Pirkti=0.8600;
-const double GBP_parduoti=0.9220;
+const double GBP_Parduoti=0.9220;
 };
 
 struct USD {
@@ -32,9 +32,15 @@ int main() {
     switch (pasirinkimas)
     {
         case 1: //valiutu lyginimas
-
+        {
+        string valiuta1, valiuta2;
+        cout<<"Iveskite dvi valiutas, kurias norite lyginti (EUR/GBP/USD/INR): ";
+        cin>>valiuta1>>valiuta2;
+        //???????????????
         break;
+        }
         case 2: //pirkti valiuta
+        {
         double pirkti;
         cout<<"Iveskite eur: ";
         cin>>eurai;
@@ -58,31 +64,34 @@ int main() {
         }
         else cout<<"Ivesta netinkama valiuta"<<endl;
         break;
+    }
         case 3: //parduoti valiuta
+        {
+        double suma;
         double parduoti;
         cout<<"Iveskite valiuta, kuria norite parduoti (GBP/USD/INR): ";
         cin>>valiuta;
         cout<<"Iveskite parduodama suma: ";
-        cin>>eurai;
-        if(eurai<=0){
+        cin>>suma;
+        if(suma<=0){
             cout<<"Ivesta netinkama suma"<<endl;
             return 0;
         }
-
         if(valiuta=="GBP"||valiuta=="gbp"||valiuta=="Gbp"){
-            pirkti=eurai*gbp.GBP_Pirkti;
-            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<pirkti<<" GBP."<<endl;
+            parduoti=suma*gbp.GBP_Parduoti;
+            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<parduoti<<" GBP."<<endl;
         }
         else if(valiuta=="USD"||valiuta=="usd"||valiuta=="Usd"){
-            pirkti=eurai*usd.USD_Pirkti;
-            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<pirkti<<" USD."<<endl;
+            parduoti=suma*usd.USD_Parduoti;
+            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<parduoti<<" USD."<<endl;
         }
         else if(valiuta=="INR"||valiuta=="inr"||valiuta=="Inr"){
-            pirkti=eurai*inr.INR_Pirkti;
-            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<pirkti<<" INR."<<endl;
+            parduoti=suma*inr.INR_Parduoti;
+            cout<<"Suma, kuria nusipirkote: "<<fixed<<setprecision(2)<<parduoti<<" INR."<<endl;
         }
         else cout<<"Ivesta netinkama valiuta"<<endl;
         break;
+    }
         default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
     }
 }
