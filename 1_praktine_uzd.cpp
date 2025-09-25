@@ -141,4 +141,5 @@ int main() {
         }
         default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
     }
+    return 0;
 }
