@@ -2,6 +2,7 @@
 #include <iomanip>
 using namespace std;
 
+//Kursu strukturos
 struct GBP {
 const double GBP_Bendras=0.8729;
 const double GBP_Pirkti=0.8600;
@@ -29,7 +30,7 @@ int main() {
     double suma;
     cout<<"Iveskite '1', jei norite lyginti valiutas\nIveskite '2', jei norite isigyti valiuta\nIveskite '3', jei norite parduoti valiuta"<<endl;
     cin>>pas1;
-    switch (pas1)
+    switch (pas1) //didysis pasirinkimas
     {
         case 1: //valiutu lyginimas
         {
@@ -40,8 +41,8 @@ int main() {
         cin>>valiuta;
         cout<<"Iveskite suma, kuria norite versti:";
         cin>>suma;
-        switch (pas2) {
-        case 1:
+        switch (pas2) { //keitimo pasirinkimas
+        case 1: //EUR i kita valiuta
             {
                 if(valiuta=="GBP"||valiuta=="gbp"){
                     keisti=suma*gbp.GBP_Bendras;
@@ -57,7 +58,7 @@ int main() {
                 }
                 break;
             }
-        case 2:
+        case 2: //kita valiuta i EUR
             {
                if(valiuta=="GBP"||valiuta=="gbp"){
                     keisti=suma/gbp.GBP_Bendras;
