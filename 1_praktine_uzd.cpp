@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 using namespace std;
 
 //Kursu strukturos
@@ -37,13 +38,16 @@ int main() {
         double keisti;
         cout<<"Iveskite '1', jeigu norite versti EUR i kita valiuta\nIveskite '2', jeigu norite versti kita valiuta i EUR"<<endl;
         cin>>pas2;
-        cout<<"Iveskite kita valiuta: ";
-        cin>>valiuta;
         cout<<"Iveskite suma, kuria norite versti:";
         cin>>suma;
+        if(suma<=0){
+        cout<<"Ivesta netinkama suma"<<endl;
+        return 0;}
         switch (pas2) { //keitimo pasirinkimas
         case 1: //EUR i kita valiuta
             {
+                cout<<"Iveskite kita valiuta: ";
+                cin>>valiuta;
                 if(valiuta=="GBP"||valiuta=="gbp"){
                     keisti=suma*gbp.GBP_Bendras;
                     cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" GBP."<<endl;
@@ -56,10 +60,13 @@ int main() {
                     keisti=suma*inr.INR_Bendras;
                     cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" INR."<<endl;
                 }
+                else cout<<"Ivesta netinkama valiuta"<<endl;
                 break;
             }
         case 2: //kita valiuta i EUR
             {
+               cout<<"Iveskite kita valiuta: ";
+               cin>>valiuta;
                if(valiuta=="GBP"||valiuta=="gbp"){
                     keisti=suma/gbp.GBP_Bendras;
                     cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" EUR."<<endl;
@@ -72,9 +79,11 @@ int main() {
                     keisti=suma/inr.INR_Bendras;
                     cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" EUR."<<endl;
                 } 
+                else cout<<"Ivesta netinkama valiuta"<<endl;
                 break;
             }
         default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
+        break;
             }
         break;
         }
