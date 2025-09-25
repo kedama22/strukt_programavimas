@@ -24,50 +24,87 @@ int main() {
     GBP gbp;
     USD usd;
     INR inr;
-    int pasirinkimas;
+    int pas1, pas2; //pasirinkimai (didysis ir case 1)
     string valiuta;
-    double eurai;
+    double suma;
     cout<<"Iveskite '1', jei norite lyginti valiutas\nIveskite '2', jei norite isigyti valiuta\nIveskite '3', jei norite parduoti valiuta"<<endl;
-    cin>>pasirinkimas;
-    switch (pasirinkimas)
+    cin>>pas1;
+    switch (pas1)
     {
         case 1: //valiutu lyginimas
         {
-        string valiuta1, valiuta2;
-        cout<<"Iveskite dvi valiuntas, kurias norite lyginti (EUR/GBP/USD/INR): ";
-        cin>>valiuta1>>valiuta2;
-        //???????????????
+        double keisti;
+        cout<<"Iveskite '1', jeigu norite versti EUR i kita valiuta\nIveskite '2', jeigu norite versti kita valiuta i EUR"<<endl;
+        cin>>pas2;
+        cout<<"Iveskite kita valiuta: ";
+        cin>>valiuta;
+        cout<<"Iveskite suma, kuria norite versti:";
+        cin>>suma;
+        switch (pas2) {
+        case 1:
+            {
+                if(valiuta=="GBP"||valiuta=="gbp"){
+                    keisti=suma*gbp.GBP_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" GBP."<<endl;
+                }
+                else if(valiuta=="USD"||valiuta=="usd"){
+                    keisti=suma*usd.USD_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" USD."<<endl;
+                }
+                else if(valiuta=="INR"||valiuta=="inr"){
+                    keisti=suma*inr.INR_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" INR."<<endl;
+                }
+                break;
+            }
+        case 2:
+            {
+               if(valiuta=="GBP"||valiuta=="gbp"){
+                    keisti=suma/gbp.GBP_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" EUR."<<endl;
+                }
+                else if(valiuta=="USD"||valiuta=="usd"){
+                    keisti=suma/usd.USD_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" EUR."<<endl;
+                }
+                else if(valiuta=="INR"||valiuta=="inr"){
+                    keisti=suma/inr.INR_Bendras;
+                    cout<<"Gauta suma: "<<fixed<<setprecision(2)<<keisti<<" EUR."<<endl;
+                } 
+                break;
+            }
+        default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
+            }
         break;
         }
-        case 2: //pirkti valiutan
+        case 2: //pirkti valiutas
         {
         double pirkti;
+        cout<<"Iveskite valiuta, kuria norite pirkti (GBP/USD/INR): ";
+        cin>>valiuta;
         cout<<"Iveskite eur: ";
-        cin>>eurai;
-        if(eurai<=0){
+        cin>>suma;
+        if(suma<=0){
             cout<<"Ivesta netinkama suma"<<endl;
             return 0;
         }
-        cout<<"Iveskite valiuta, kuria norite pirkti (GBP/USD/INR): ";
-        cin>>valiuta;
-        if(valiuta=="GBP"||valiuta=="gbp"||valiuta=="Gbp"){
-            pirkti=eurai*gbp.GBP_Pirkti;
+        if(valiuta=="GBP"||valiuta=="gbp"){
+            pirkti=suma*gbp.GBP_Pirkti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<pirkti<<" GBP."<<endl;
         }
-        else if(valiuta=="USD"||valiuta=="usd"||valiuta=="Usd"){
-            pirkti=eurai*usd.USD_Pirkti;
+        else if(valiuta=="USD"||valiuta=="usd"){
+            pirkti=suma*usd.USD_Pirkti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<pirkti<<" USD."<<endl;
         }
-        else if(valiuta=="INR"||valiuta=="inr"||valiuta=="Inr"){
-            pirkti=eurai*inr.INR_Pirkti;
+        else if(valiuta=="INR"||valiuta=="inr"){
+            pirkti=suma*inr.INR_Pirkti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<pirkti<<" INR."<<endl;
         }
         else cout<<"Ivesta netinkama valiuta"<<endl;
         break;
-    }
+        }
         case 3: //parduoti valiuta
         {
-        double suma;
         double parduoti;
         cout<<"Iveskite valiuta, kuria norite parduoti (GBP/USD/INR): ";
         cin>>valiuta;
@@ -77,21 +114,21 @@ int main() {
             cout<<"Ivesta netinkama suma"<<endl;
             return 0;
         }
-        if(valiuta=="GBP"||valiuta=="gbp"||valiuta=="Gbp"){
+        if(valiuta=="GBP"||valiuta=="gbp"){
             parduoti=suma/gbp.GBP_Parduoti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<parduoti<<" EUR."<<endl;
         }
-        else if(valiuta=="USD"||valiuta=="usd"||valiuta=="Usd"){
+        else if(valiuta=="USD"||valiuta=="usd"){
             parduoti=suma/usd.USD_Parduoti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<parduoti<<" EUR."<<endl;
         }
-        else if(valiuta=="INR"||valiuta=="inr"||valiuta=="Inr"){
+        else if(valiuta=="INR"||valiuta=="inr"){
             parduoti=suma/inr.INR_Parduoti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<parduoti<<" EUR."<<endl;
         }
         else cout<<"Ivesta netinkama valiuta"<<endl;
         break;
-    }
+        }
         default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
     }
 }
