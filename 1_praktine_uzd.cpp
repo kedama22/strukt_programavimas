@@ -90,14 +90,14 @@ int main() {
         case 2: //pirkti valiutas
         {
         double pirkti;
-        cout<<"Iveskite valiuta, kuria norite pirkti (GBP/USD/INR): ";
-        cin>>valiuta;
         cout<<"Iveskite eur: ";
         cin>>suma;
         if(suma<=0){
             cout<<"Ivesta netinkama suma"<<endl;
             return 0;
         }
+        cout<<"Iveskite valiuta, kuria norite pirkti (GBP/USD/INR): ";
+        cin>>valiuta;
         if(valiuta=="GBP"||valiuta=="gbp"){
             pirkti=suma*gbp.GBP_Pirkti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<pirkti<<" GBP."<<endl;
@@ -116,14 +116,14 @@ int main() {
         case 3: //parduoti valiuta
         {
         double parduoti;
-        cout<<"Iveskite valiuta, kuria norite parduoti (GBP/USD/INR): ";
-        cin>>valiuta;
         cout<<"Iveskite parduodama suma: ";
         cin>>suma;
         if(suma<=0){
             cout<<"Ivesta netinkama suma"<<endl;
             return 0;
         }
+        cout<<"Iveskite valiuta, kuria norite parduoti (GBP/USD/INR): ";
+        cin>>valiuta;
         if(valiuta=="GBP"||valiuta=="gbp"){
             parduoti=suma/gbp.GBP_Parduoti;
             cout<<"Gauta suma: "<<fixed<<setprecision(2)<<parduoti<<" EUR."<<endl;
