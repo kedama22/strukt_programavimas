@@ -30,6 +30,10 @@ int main() {
     do {
         meniu();
         cin>>pas;
+        if (pas==5) {
+            cout<<"Iseinama is programos."<<endl;
+            break;
+        }
         if (mokiniu_sk==0 && pas>1 && pas<5) {
             cout<<"Ivestu mokiniu kiekis: 0"<<endl;
         }
@@ -72,6 +76,9 @@ int main() {
                         }
                         cout<<"\n";
                     }
+                    case 2: {
+                        
+                    }
                 }
                 break;
             }
@@ -90,6 +97,7 @@ int main() {
                     }
                 }
                 cout<<"Pazymys atnaujintas sekmingai"<<endl;
+                break;
             }
             case 4: //pasalinti mokini
             {
@@ -106,14 +114,10 @@ int main() {
                         }
                     }
                 }
+                break;
             }
-            // case 5: //iseiti
-            // {
-            //     cout<<"Iseinama is programos."<<endl;
-            //     break;
-            // }
             default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
         }
-    } while (pas==1 || pas==2 || pas==3 || pas==4 || pas==5);
+    } while (pas==1 || pas==2 || pas==3 || pas==4);
     return 0;
 }

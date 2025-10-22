@@ -23,7 +23,7 @@ int main() {
     string vardai[MAX_MOKINIAI]; 
     int pazymiai[MAX_MOKINIAI][MAX_PAZYMIAI] = {0};
     int mokiniai_sk = 0;
-    int pas;
+    int pasirinkimas;
     while (true) {
         meniu();
         // cout << "------------------------------------------\n";
@@ -31,7 +31,7 @@ int main() {
             cout << "Programa baigia darba. Iki! \n";
             break;
         }
-        if (mokiniai_sk == 0 && pas > 1 && pas < 5) {
+        if (mokiniai_sk == 0 && pasirinkimas > 1 && pasirinkimas < 5) {
             cout << "Sarase nera mokiniu.\n";
             continue;
         }
@@ -47,34 +47,33 @@ int main() {
                 cout << "Iveskite mokinio varda: ";
                 cin >> naujasVardas;
                 
-                // Patikrinimas: ar vardas jau egzistuoja
-                // int indeksas = -1;
-                // for (int i = 0; i < mokiniai_sk; ++i) {
-                //     if (vardai[i] == naujasVardas) {
-                //         indeksas = i;
-                //         break;
-                //     }
-                // }
-                // if (indeksas != -1) {
-                //     cout << "Mokinys jau yra sarase.\n";
-                //     break;
-                // }
+                //Patikrinimas: ar vardas jau egzistuoja
+                int indeksas = -1;
+                for (int i = 0; i < mokiniai_sk; ++i) {
+                    if (vardai[i] == naujasVardas) {
+                        indeksas = i;
+                        break;
+                    }
+                }
+                if (indeksas != -1) {
+                    cout << "Mokinys jau yra sarase.\n";
+                    break;
+                }
                 vardai[mokiniai_sk] = naujasVardas;
 
                 int kiekis;
                 cout << "Kiek pazymiu (maks. " << MAX_PAZYMIAI << ")? ";
                 cin >> kiekis;
-                // if (kiekis < 0 || kiekis > MAX_PAZYMIAI) kiekis = 0;
+                if (kiekis < 0 || kiekis > MAX_PAZYMIAI) kiekis = 0;
                 for (int i = 0; i < kiekis; ++i) {
                     int pazymys;
-                    // cout << "Iveskite " << i + 1 << "-aji pazymi (1-10): ";
-                    //     pazymiai[mokiniai_sk][j] = TUSCIAS_PAZYMYS;
-                    //     cin.clear();
-                    //     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Iveskite " << i + 1 << "-aji pazymi (1-10): ";
+                        pazymiai[mokiniai_sk][i] = TUSCIAS_PAZYMYS;
+                        cin.clear();
+                        // cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     } else {
                         pazymiai[mokiniai_sk][j] = pazymys;
                     }
-                }
 
                 mokiniai_sk++;
                 cout << "Mokinys \"" << naujasVardas << "\" pridėtas.\n";
@@ -191,13 +190,11 @@ int main() {
                     cout << "Mokinys nerastas.\n";
                 }
                 break;
-            }
-
-            default:
+                default:
                 cout << "Nezinomas pasirinkimas. Bandykite dar karta (1-5).\n";
+            }
+        }            
         }
         cout << "\n==========================================\n";
+        return 0;
     }
-
-    return 0;
-}
