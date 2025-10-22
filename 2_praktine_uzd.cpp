@@ -21,7 +21,7 @@ int main() {
     string vardai[max_mokiniu];
     int pazymiai[max_mokiniu][max_pazymiu]={0};
     string vardas;
-    int pas, kiek; //paziureti, gal nereikia kiek
+    int pas, kiek;
     int mokiniu_sk=0;
 
     do {
@@ -38,7 +38,7 @@ int main() {
             case 1: //prideti mokini ir pazymius
             {
                 if (mokiniu_sk>=max_mokiniu) {
-                    cout<<"Ivestas maksimalus galimas mokiniu kiekis"<<endl;
+                    cout<<"Ivestas maksimalus galimas mokiniu kiekis."<<endl;
                     break;
                 }
                 cout<<"Iveskite mokinio varda: ";
@@ -46,13 +46,21 @@ int main() {
                 vardai[mokiniu_sk]=vardas;
                 cout<<"Iveskite pazymiu kieki:";
                 cin>>kiek;
+                if (kiek>10 || kiek<0) {
+                    cout<<"Ivestas neteisingas kiekis."<<endl;
+                    break;
+                }
                 cout<<"Iveskite pazymius:"<<endl;
                 for (int i=0; i<kiek; i++){
                     int pazymys;
                     cin>>pazymys;
+                    if (pazymys>10 || pazymys<0) {
+                        cout<<"Ivestas neteisingas pazymys."<<endl;
+                        break;
+                    }
                     pazymiai[mokiniu_sk][i]=pazymys;
                 }
-                pazymiai[mokiniu_sk][kiek_pazymiu] = kiek;
+                pazymiai[mokiniu_sk][kiek_pazymiu] = kiek; //kad zinotume, kiek pazymiu turi mokinys
                 mokiniu_sk++;
                 cout<<"Mokinys "<<vardas<<" pridetas."<<endl;
                 break;
