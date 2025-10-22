@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
-#include <iomanip> // Reikalinga std::setw
-#include <limits>  // Reikalinga std::numeric_limits
+#include <iomanip>
 
-using namespace std; // Naudojame namespace std
+using namespace std;
+
 const int MAX_MOKINIAI = 100;
 const int MAX_PAZYMIAI = 10;
 const int TUSCIAS_PAZYMYS = 0; 
@@ -18,30 +18,20 @@ void meniu() {
     cout << "Pasirinkite veiksma: ";
 }
 
-// --- PAGRINDINE PROGRAMA ---
 int main() {
     // Duomenų masyvai
     string vardai[MAX_MOKINIAI]; 
-    int pazymiai[MAX_MOKINIAI][MAX_PAZYMIAI] = {0}; // Inicializuojame pažymius nuliu
-    int mokiniai_sk = 0; // Faktinis mokinių skaičius
-    int pasirinkimas;
-    // Pagrindinis ciklas, palaikantis meniu
+    int pazymiai[MAX_MOKINIAI][MAX_PAZYMIAI] = {0};
+    int mokiniai_sk = 0;
+    int pas;
     while (true) {
-        // Rodyti meniu
         meniu();
-        // Paimame pasirinkimą
-        if (!(cin >> pasirinkimas)) {
-            cout << "\nKlaida! Iveskite skaiciu.\n";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-            continue; 
-        }
-        cout << "------------------------------------------\n";
+        // cout << "------------------------------------------\n";
         if (pasirinkimas == 5) {
             cout << "Programa baigia darba. Iki! \n";
             break;
         }
-        if (mokiniai_sk == 0 && pasirinkimas > 1 && pasirinkimas < 5) {
+        if (mokiniai_sk == 0 && pas > 1 && pas < 5) {
             cout << "Sarase nera mokiniu.\n";
             continue;
         }
@@ -58,34 +48,29 @@ int main() {
                 cin >> naujasVardas;
                 
                 // Patikrinimas: ar vardas jau egzistuoja
-                int indeksas = -1;
-                for (int i = 0; i < mokiniai_sk; ++i) {
-                    if (vardai[i] == naujasVardas) {
-                        indeksas = i;
-                        break;
-                    }
-                }
-                if (indeksas != -1) {
-                    cout << "Mokinys jau yra sarase.\n";
-                    break;
-                }
-
+                // int indeksas = -1;
+                // for (int i = 0; i < mokiniai_sk; ++i) {
+                //     if (vardai[i] == naujasVardas) {
+                //         indeksas = i;
+                //         break;
+                //     }
+                // }
+                // if (indeksas != -1) {
+                //     cout << "Mokinys jau yra sarase.\n";
+                //     break;
+                // }
                 vardai[mokiniai_sk] = naujasVardas;
 
                 int kiekis;
                 cout << "Kiek pazymiu (maks. " << MAX_PAZYMIAI << ")? ";
                 cin >> kiekis;
-
-                if (kiekis < 0 || kiekis > MAX_PAZYMIAI) kiekis = 0;
-
-                for (int j = 0; j < kiekis; ++j) {
+                // if (kiekis < 0 || kiekis > MAX_PAZYMIAI) kiekis = 0;
+                for (int i = 0; i < kiekis; ++i) {
                     int pazymys;
-                    cout << "  Iveskite " << j + 1 << "-aji pazymi (1-10): ";
-                    if (!(cin >> pazymys) || pazymys < 1 || pazymys > 10) {
-                        cout << "  Neteisinga reiksme. Irasytas 0.\n";
-                        pazymiai[mokiniai_sk][j] = TUSCIAS_PAZYMYS;
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    // cout << "Iveskite " << i + 1 << "-aji pazymi (1-10): ";
+                    //     pazymiai[mokiniai_sk][j] = TUSCIAS_PAZYMYS;
+                    //     cin.clear();
+                    //     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     } else {
                         pazymiai[mokiniai_sk][j] = pazymys;
                     }
