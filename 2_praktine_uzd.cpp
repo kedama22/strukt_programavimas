@@ -3,11 +3,6 @@
 #include <iomanip>
 
 using namespace std;
-
-// const int MAX_MOKINIAI = 100;
-// const int MAX_PAZYMIAI = 10;
-const int TUSCIAS_PAZYMYS = 0; 
-
 void meniu() {
     cout << "\n--- MOKINIU PAZYMIU SISTEMA ---\n";
     cout << "1. Prideti mokini ir pazymius\n";
@@ -20,11 +15,13 @@ void meniu() {
 
 int main() {
     int max_mokiniu=100;
-    int max_pazymiu=10;
+    int max_pazymiu=11; //turi buti 10+1, nes 11 slot naudojamas pazymiu kiekiui storinti
+    const int kiek_pazymiu=max_pazymiu-1;
+    int dabar_kiek;
     string vardai[max_mokiniu];
-    int pazymiai[max_mokiniu][max_pazymiu];
+    int pazymiai[max_mokiniu][max_pazymiu]={0};
     string vardas;
-    int pas, kiek;
+    int pas, kiek; //paziureti, gal nereikia kiek
     int mokiniu_sk=0;
 
     do {
@@ -55,6 +52,7 @@ int main() {
                     cin>>pazymys;
                     pazymiai[mokiniu_sk][i]=pazymys;
                 }
+                pazymiai[mokiniu_sk][kiek_pazymiu] = kiek;
                 mokiniu_sk++;
                 cout<<"Mokinys "<<vardas<<" pridetas."<<endl;
                 break;
@@ -70,18 +68,31 @@ int main() {
                 switch (pas2) {
                     case 1:
                     for (int i=0; i<mokiniu_sk;i++) {
+                        dabar_kiek=pazymiai[i][kiek_pazymiu];
                         cout<<vardai[i]<<": ";
-                        for (int j=0; j<max_pazymiu;j++) {
+                        for (int j=0; j<dabar_kiek;j++) {
                             cout<<pazymiai[i][j]<<" ";
                         }
                         cout<<"\n";
                     }
+                    break;
                     case 2: {
-                        
+                        cout<<"Iveskite mokinio, kurio pazymius norite perziureti, varda: ";
+                        cin>>vardas;
+                        for (int i=0;i<mokiniu_sk;i++) {
+                            if (vardai[i]==vardas) {
+                                dabar_kiek=pazymiai[i][kiek_pazymiu];
+                                cout<<vardai[i]<<": ";
+                                for (int j=0;j<dabar_kiek;j++) {
+                                    cout<<pazymiai[i][j]<<" ";
+                                }
+                            }
+                        }
                     }
                 }
                 break;
             }
+            break;
             case 3: //atnaujinti pazymi
             {
                 int pazymio_nr, naujas_paz;
@@ -89,11 +100,12 @@ int main() {
                 cin>>vardas;
                 for (int i=0;i<mokiniu_sk;i++){
                     if (vardai[i]==vardas) {
-                        cout<<"Kelinta pazymi norite atnaujinti: ";
+                        dabar_kiek=pazymiai[i][kiek_pazymiu];
+                        cout<<"Kelinta pazymi norite atnaujinti (galima nuo 1 iki "<<dabar_kiek<<" ): ";
                         cin>>pazymio_nr;
                         cout<<"Iveskite nauja pazymi: ";
                         cin>>naujas_paz;
-                        pazymiai[i][pazymio_nr]=naujas_paz;
+                        pazymiai[i][pazymio_nr-1]=naujas_paz;
                     }
                 }
                 cout<<"Pazymys atnaujintas sekmingai"<<endl;
@@ -105,19 +117,15 @@ int main() {
                 cin>>vardas;
                 for (int i=0; i<mokiniu_sk;i++) {
                     if (vardai[i]==vardas) {
-                        i=-1;
-                        break;
-                    }
-                    if (i!=-1) {
-                        for (int j=0;j<mokiniu_sk;j++){
-                            
-                        }
+                        vardai[i]=vardai[i+1];
                     }
                 }
+                mokiniu_sk--;
+                cout<<"Mokinys "<<vardas<<" ismestas sekmingai"<<endl;
                 break;
             }
-            default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
-        }
+            default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;            
+            }
     } while (pas==1 || pas==2 || pas==3 || pas==4);
     return 0;
 }
