@@ -33,6 +33,7 @@ int main() {
         }
         if (mokiniu_sk==0 && pas>1 && pas<5) {
             cout<<"Ivestu mokiniu kiekis: 0"<<endl;
+            continue;
         }
         switch (pas) {
             case 1: //prideti mokini ir pazymius
@@ -73,6 +74,10 @@ int main() {
                 cout<<"2. Perziureti konkretaus mokinio pazymius\n";
                 cout<<"Iveskite pasirinkima: ";
                 cin>>pas2;
+                if (pas2!=1 && pas2!=2) {
+                    cout<<"Ivestas neteisingas pasirinkimas."<<endl;
+                    break;
+                }
                 switch (pas2) {
                     case 1:
                     for (int i=0; i<mokiniu_sk;i++) {
