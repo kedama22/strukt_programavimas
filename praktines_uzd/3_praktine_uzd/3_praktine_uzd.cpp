@@ -42,6 +42,6 @@ int main() {
                 ifstream fin2(FIN2);
             }
         }
-    } while (pas=1 || pas=2);
+    } while (pas==1 || pas==2);
     return 0;
 }
