@@ -47,7 +47,7 @@ int main() {
                 vardai[mokiniu_sk]=vardas;
                 cout<<"Iveskite pazymiu kieki:";
                 cin>>kiek;
-                if (kiek>10 || kiek<0) {
+                if (kiek>max_pazymiu-1 || kiek<0) {
                     cout<<"Ivestas neteisingas kiekis."<<endl;
                     break;
                 }
