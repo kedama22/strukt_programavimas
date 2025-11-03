@@ -8,7 +8,10 @@ using namespace std;
 const char FIN1[]="bilietu_pardavimu_info.txt";
 const char FIN2[]="salary.txt";
 const char FOUT2[]="new_salary.txt";
-// const char FOUT[]=""
+
+const int max_bilietu_tipu=4;
+const int max_darbuotoju=3;
+
 struct Zmogus {
     string pavarde;
     string vardas;
@@ -27,9 +30,8 @@ void menu() {
 }
 
 int main() {
-    // int i=0,j=0;
-    int bilietai[10][10];
-    Zmogus darbuotojas[10];
+    int bilietai[max_bilietu_tipu][max_bilietu_tipu];
+    Zmogus darbuotojas[max_darbuotoju];
     int pas;
     string eil;
     double pard_bilietu_sk=0,bendra_pard_suma=0,pard_suma=0;
@@ -89,12 +91,12 @@ int main() {
                     n++;
                 }
                 fin2.clear();
-                //fin2.seekg(0); //pirma eilute yra tekstas, todel reikia ja praleisti PASIDOMETI!!!
-                for(i=0;i<n-1;i++) {
+                fin2.seekg(0); //pirma eilute yra tekstas, todel reikia ja praleisti PASIDOMETI!!!
+                for(i=0;i<n;i++) {
                     getline(fin2,darbuotojas[i].pavarde,',');
                     getline(fin2,darbuotojas[i].vardas,',');
                     fin2>>darbuotojas[i].esamas_atlyg>>a>>darbuotojas[i].padidejimo_proc;
-                    // fin2.ignore(1,'\n');
+                    fin2.ignore(1,'\n');
                 }
                 i=0;
                 ofstream fout2(FOUT2);
@@ -102,7 +104,7 @@ int main() {
                     cout<<"Nepavyko sukurti failo."<<endl;
                     break;
                 }
-                for(i=0;i<n-1;i++) {
+                for(i=0;i<n;i++) {
                     darbuotojas[i].naujas_atlyg=darbuotojas[i].esamas_atlyg+(darbuotojas[i].esamas_atlyg*(darbuotojas[i].padidejimo_proc/100));
                 }
                 i=0;
