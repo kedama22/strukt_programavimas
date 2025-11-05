@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <string> //gal nereikia??
+#include <string>
 
 using namespace std;
 
@@ -35,9 +35,9 @@ int main() {
     int pas;
     string eil;
     double pard_bilietu_sk=0,bendra_pard_suma=0,pard_suma=0;
-    menu();
-    cin>>pas;
-    if(pas==1 || pas==2 || pas==3) {
+    do {
+        menu();
+        cin>>pas;
         if (pas==3) {
             cout<<"Iseinama is programos"<<endl;
             return 0;
@@ -72,7 +72,6 @@ int main() {
                     bendra_pard_suma+=pard_suma;
                 }
                 fin1.close();
-                // ofstream fout (COUT??? kaip isvesti ats)
                 cout<<"Parduotu bilietu sk.: "<<fixed<<setprecision(2)<<pard_bilietu_sk<<endl;
                 cout<<"Bendra pardavimu suma: "<<fixed<<setprecision(2)<<bendra_pard_suma<<endl;
             }
@@ -91,7 +90,7 @@ int main() {
                     n++;
                 }
                 fin2.clear();
-                fin2.seekg(0); //pirma eilute yra tekstas, todel reikia ja praleisti PASIDOMETI!!!
+                fin2.seekg(0); //pirma eilute yra tekstas, todel reikia ja praleisti
                 for(i=0;i<n;i++) {
                     getline(fin2,darbuotojas[i].pavarde,',');
                     getline(fin2,darbuotojas[i].vardas,',');
@@ -117,8 +116,9 @@ int main() {
                 break;
             }
             break;
-        }
-    }
-    else cout<<"Neteisingas pasirinkimas"<<endl;
+            default: cout<<"Ivestas netinkamas pasirinkimas"<<endl;
+            break;
+        } 
+    } while (pas==1 || pas==2 || pas==3);
     return 0;
 }
