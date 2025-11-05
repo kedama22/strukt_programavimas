@@ -7,6 +7,7 @@ using namespace std;
 
 const char FIN1[]="bilietu_pardavimu_info.txt";
 const char FIN2[]="salary.txt";
+const char FOUT1[]="naujas_bilietu_pardavimu_info.txt";
 const char FOUT2[]="new_salary.txt";
 
 const int max_bilietu_tipu=4;
@@ -72,8 +73,13 @@ int main() {
                     bendra_pard_suma+=pard_suma;
                 }
                 fin1.close();
+                ofstream fout1(FOUT1);
+                fout1<<fixed<<setprecision(2)<<pard_bilietu_sk<<endl;
+                fout1<<fixed<<setprecision(2)<<bendra_pard_suma<<endl;
                 cout<<"Parduotu bilietu sk.: "<<fixed<<setprecision(2)<<pard_bilietu_sk<<endl;
                 cout<<"Bendra pardavimu suma: "<<fixed<<setprecision(2)<<bendra_pard_suma<<endl;
+                cout<<"Pardavimai issaugoti faile: "<<FOUT1<<endl;
+                fout1.close();
             }
             break;
             case 2:
