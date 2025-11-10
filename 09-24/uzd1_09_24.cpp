@@ -5,10 +5,10 @@ int main() {
     int n; //pazymiu sk.
     int paz;
     int suma=0;
-    cout<<"Iveskite pazymiu sk.: "<<endl;
+    cout<<"Iveskite pazymiu sk.: ";
     cin>>n;
+    cout<<"Iveskite pazymi: "<<endl;
     for(int i=0;i<n;i++){
-        //cout<<"Iveskite pazymi: "<<endl;
         cin>>paz;
         suma+=paz;
     }

@@ -10,10 +10,7 @@ int main() {
         cin>>masyvas[i];
         suma+=masyvas[i];
     }
-    // for (int i=0;i<n;i++){
-    //     suma+=masyvas[i];
-    // }
-    for (int i=0;i<n;i++) { //ISSIAISKINTI
+    for (int i=0;i<-1;i++) { //ISSIAISKINTI
         didz=masyvas[i];
         if(masyvas[i]>didz){
             didz=masyvas[i];
