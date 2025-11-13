@@ -1,0 +1,6 @@
+Tomas 8
+Greta 10
+Arnas 5
+Jonas 8
+Deividas 9
+Klaudijus 7
