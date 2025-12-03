@@ -10,9 +10,24 @@ struct menuItemType {
     double menuPrice;
 };
 
-// void 
+void showMenu() {
+    cout<<"======= MENU ======="<<endl;
+    cout<<"Patiekalo pavadinimas         Kaina (EUR)"<<endl;
+    for (int i=0; i<eil_sk; i++) {
+        cout<<menuList[i].menuItem<<" "<<menuList[i].menuPrice<<endl;
+    }
+}
+
+void getData() {
+
+}
+
+void printCheck() {
+    
+}
 
 int main() {
+    int pasirinkimas;
     menuItemType menuList[100];
     string eil;
     int eil_sk=0;
@@ -30,6 +45,17 @@ int main() {
         getline(fin,menuList[i].menuItem,',');
         fin>>menuList[i].menuPrice;
     }
-    
+    fin.close();
+    do {
+        showMenu();
+        cin>>pasirinkimas;
+        switch (pasirinkimas) {
+            case 1:
+            {
+
+            }
+        }
+    } while (pasirinkimas==1);
     return 0;
 }
+
