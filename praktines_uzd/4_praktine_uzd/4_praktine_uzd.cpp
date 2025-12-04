@@ -9,9 +9,11 @@ const char FOUT[]="receipt.txt";
 struct menuItemType {
     string menuItem;
     double menuPrice;
+    int menuItemNr;
+    int servingNr;
 };
 
-menuItemType menuList[100];
+menuItemType menuList[20][2];
 int eil_sk=0;
 int patiekaloNr, porcijuSk, patiekaluSk;
 
@@ -28,9 +30,10 @@ void showMenu() {
     cout<<endl;
     cout<<left<<setw(itemWidth)<<"Patiekalo pavadinimas"<<right<<setw(priceNameWidth)<<"Kaina (EUR)"<<endl;
     for (int i=0; i<eil_sk; i++) {
-        int patiekalo_sk=i+1;
-        cout<<patiekalo_sk<<") "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice<<endl;
-        patiekalo_sk++;
+        int patiekaloNr=i+1;
+        menuList[i].menuItemNr=patiekaloNr;
+        cout<<patiekaloNr<<") "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice<<endl;
+        patiekaloNr++;
     }
     cout<<"\n\n";
     cout<<left<<setw(choicePadding)<<""<<menuChoice<<endl;
@@ -62,8 +65,22 @@ void getData() {
 }
 
 void printCheck() {
-    ofstream fout(FOUT);
+    double pvm;
+    double check;
+    for (int i=1; i<patiekaluSk+1; i++) {
+        if (i==menuList[i].menuItemNr) {
+            cout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice<<endl;
+        }
+        cout<<<<" Patiekalas Nr. "<<menuList[i].menuItemNr<<endl;
+    }
+    pvm=()*0.21;
 
+    cout<<"Jusu saskaita:"<<endl;
+    for (int i=0; i<patiekaluSk; i++) {
+        cout<<menuList[i].servingNr<<" Patiekalas Nr. "<<menuList[i].menuItemNr<<endl;
+    }
+    cout<<"Mokesciai (21%)"
+    ofstream fout(FOUT);
 }
 
 int main() {
@@ -78,17 +95,26 @@ int main() {
                 cout<<"Iveskite norimu skirtingu patiekalu skaiciu: ";
                 cin>>patiekaluSk;
                 for (int i=0; i<patiekaluSk; i++) {
-                    cout<<"Iveskite patiekalo skaiciu: ";
-                    cin>>patiekaloNr;
-                    cout<<"Iveskite porciju kieki: ";
-                    cin>>porcijuSk;
+                    do {
+                        cout<<"Iveskite patiekalo numeri: ";
+                        cin>>menuList[i].menuItemNrPas;
+                        if (menuList[i].menuItemNrPas<=0 || menuList[i].menuItemNrPas>eil_sk) {
+                            cout<<"Ivestas neteisingas patiekalo numeris"<<endl;
+                        }
+                    } while (menuList[i].menuItemNrPas<=0 || menuList[i].menuItemNrPas>eil_sk);
+                    do {
+                            cout<<"Iveskite porciju kieki: ";
+                            cin>>menuList[i].servingNr;
+                            if (menuList[i].servingNr<=0) {
+                                cout<<"Ivestas neteisingas kiekis"<<endl;
+                            }
+                    } while (menuList[i].servingNr<=0);
                 }
-                cout<<"Jusu uzsakymas: "<<
                 break;
             }
             case 2:
             {
-
+                break;
             }
             case 3:
             {
