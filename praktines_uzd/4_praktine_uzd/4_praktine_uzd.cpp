@@ -9,18 +9,21 @@ const char FOUT[]="receipt.txt";
 struct menuItemType {
     string menuItem;
     double menuPrice;
-    int menuItemNr;
-    int servingNr;
+    int menuItemNr; //patiekalo numeris
+    int servingNr; //porciju kiekis
+    int menuItemNrPas; //pasirinkto patiekalo numeris
 };
 
-menuItemType menuList[20][2];
+menuItemType menuList[20];
 int eil_sk=0;
-int patiekaloNr, porcijuSk, patiekaluSk;
+int patiekaloNr, patiekaluSk;
+double pvmMokesciai=0, finalPrice=0;
+const int itemWidth=38;
+const int priceNameWidth=13;
+const int priceWidth=8;
+const double pvm=0.21;
 
 void showMenu() {
-    const int itemWidth=38;
-    const int priceNameWidth=13;
-    const int priceWidth=8;
     const string menuHeader="================ MENU ================";
     const string menuChoice="============ PASIRINKIMAI ============";
     int menuPadding=((itemWidth+priceWidth)-menuHeader.length())/2;
@@ -65,24 +68,22 @@ void getData() {
 }
 
 void printCheck() {
-    double pvm;
     double check;
-    for (int i=1; i<patiekaluSk+1; i++) {
-        if (i==menuList[i].menuItemNr) {
-            cout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice<<endl;
+    for (int i=0; i<eil_sk; i++) {
+        if (menuList[i].menuItemNrPas==menuList[i].menuItemNr+1) {
+            cout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice*menuList[i].servingNr<<endl;
+            pvmMokesciai+=(menuList[i].menuPrice*menuList[i].servingNr)*pvm;
         }
     }
-    pvm=()*0.21;
-
-    cout<<"Jusu saskaita:"<<endl;
-    for (int i=0; i<patiekaluSk; i++) {
-        cout<<menuList[i].servingNr<<" Patiekalas Nr. "<<menuList[i].menuItemNr<<endl;
-    }
-    cout<<"Mokesciai (21%)"
+    cout<<left<<setw(itemWidth)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<pvmMokesciai<<endl;
     ofstream fout(FOUT);
-    for (int i=0; i<)
-    fout<<
-}
+    for (int i=0; i<patiekaluSk; i++) {
+        fout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice*menuList[i].servingNr<<endl;
+    }
+    fout<<left<<setw(itemWidth)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
+    fout.close();
+    }
+    
 
 int main() {
     int pasirinkimas;
