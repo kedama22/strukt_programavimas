@@ -71,7 +71,6 @@ void printCheck() {
         if (i==menuList[i].menuItemNr) {
             cout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice<<endl;
         }
-        cout<<<<" Patiekalas Nr. "<<menuList[i].menuItemNr<<endl;
     }
     pvm=()*0.21;
 
@@ -81,6 +80,8 @@ void printCheck() {
     }
     cout<<"Mokesciai (21%)"
     ofstream fout(FOUT);
+    for (int i=0; i<)
+    fout<<
 }
 
 int main() {
@@ -114,6 +115,7 @@ int main() {
             }
             case 2:
             {
+                printCheck();
                 break;
             }
             case 3:
