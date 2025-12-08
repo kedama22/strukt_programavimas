@@ -10,13 +10,13 @@ struct menuItemType {
     string menuItem;
     double menuPrice;
     int menuItemNr; //patiekalo numeris
-    int servingNr; //porciju kiekis
-    int menuItemNrPas; //pasirinkto patiekalo numeris
 };
 
 menuItemType menuList[20];
 int eil_sk=0;
 int patiekaloNr, patiekaluSk;
+int menuItemNrPas[20];
+int servingNr[20];
 double pvmMokesciai=0, finalPrice=0;
 const int itemWidth=38;
 const int priceNameWidth=13;
@@ -68,19 +68,25 @@ void getData() {
 }
 
 void printCheck() {
-    double check;
-    for (int i=0; i<eil_sk; i++) {
-        if (menuList[i].menuItemNrPas==menuList[i].menuItemNr+1) {
-            cout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice*menuList[i].servingNr<<endl;
-            pvmMokesciai+=(menuList[i].menuPrice*menuList[i].servingNr)*pvm;
-        }
+    for (int i=0; i<patiekaluSk; i++) {
+        int menuItemNrPas1 = menuItemNrPas[i];
+        int servingNr1 = servingNr[i];
+        cout<<servingNr1<<" "<<left<<setw(itemWidth)<<menuList[menuItemNrPas1].menuItem<<right<<setw(priceWidth)<<menuList[menuItemNrPas1].menuPrice*servingNr1<<endl;
+        pvmMokesciai+=(menuList[menuItemNrPas1].menuPrice*servingNr1)*pvm;
+        finalPrice+=(menuList[menuItemNrPas1].menuPrice*servingNr1);
     }
-    cout<<left<<setw(itemWidth)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<pvmMokesciai<<endl;
+    finalPrice+=pvmMokesciai;
+    cout<<left<<setw(itemWidth+2)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
+    cout<<left<<setw(itemWidth+2)<<"Galutine suma"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<finalPrice<<endl;
     ofstream fout(FOUT);
     for (int i=0; i<patiekaluSk; i++) {
-        fout<<menuList[i].servingNr<<" "<<left<<setw(itemWidth)<<menuList[i].menuItem<<right<<setw(priceWidth)<<menuList[i].menuPrice*menuList[i].servingNr<<endl;
-    }
-    fout<<left<<setw(itemWidth)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
+            int menuItemNrPas1 = menuItemNrPas[i];
+            int servingNr1 = servingNr[i];
+            fout<<servingNr1<<" "<<left<<setw(itemWidth)<<menuList[menuItemNrPas1].menuItem<<right<<setw(priceWidth)<<menuList[menuItemNrPas1].menuPrice*servingNr1<<endl;
+            pvmMokesciai+=(menuList[menuItemNrPas1].menuPrice*servingNr1)*pvm;
+        }
+    fout<<left<<setw(itemWidth+2)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
+    fout<<left<<setw(itemWidth+2)<<"Galutine suma"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<finalPrice<<endl;
     fout.close();
     }
     
@@ -97,20 +103,22 @@ int main() {
                 cout<<"Iveskite norimu skirtingu patiekalu skaiciu: ";
                 cin>>patiekaluSk;
                 for (int i=0; i<patiekaluSk; i++) {
+                    int patiekaloNrPas;
                     do {
                         cout<<"Iveskite patiekalo numeri: ";
-                        cin>>menuList[i].menuItemNrPas;
-                        if (menuList[i].menuItemNrPas<=0 || menuList[i].menuItemNrPas>eil_sk) {
+                        cin>>patiekaloNrPas;
+                        if (patiekaloNrPas<=0 || patiekaloNrPas>eil_sk) {
                             cout<<"Ivestas neteisingas patiekalo numeris"<<endl;
                         }
-                    } while (menuList[i].menuItemNrPas<=0 || menuList[i].menuItemNrPas>eil_sk);
+                    } while (patiekaloNrPas<=0 || patiekaloNrPas>eil_sk);
+                    menuItemNrPas[i]=patiekaloNrPas-1;
                     do {
                             cout<<"Iveskite porciju kieki: ";
-                            cin>>menuList[i].servingNr;
-                            if (menuList[i].servingNr<=0) {
+                            cin>>servingNr[i];
+                            if (servingNr[i]<=0) {
                                 cout<<"Ivestas neteisingas kiekis"<<endl;
                             }
-                    } while (menuList[i].servingNr<=0);
+                    } while (servingNr[i]<=0);
                 }
                 break;
             }
