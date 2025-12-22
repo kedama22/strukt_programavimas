@@ -68,6 +68,8 @@ void getData() {
 }
 
 void printCheck() {
+    pvmMokesciai=0;
+    finalPrice=0;
     for (int i=0; i<patiekaluSk; i++) {
         int menuItemNrPas1 = menuItemNrPas[i];
         int servingNr1 = servingNr[i];
@@ -76,6 +78,7 @@ void printCheck() {
         finalPrice+=(menuList[menuItemNrPas1].menuPrice*servingNr1);
     }
     finalPrice+=pvmMokesciai;
+    cout<<endl;
     cout<<left<<setw(itemWidth+2)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
     cout<<left<<setw(itemWidth+2)<<"Galutine suma"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<finalPrice<<endl;
     ofstream fout(FOUT);
@@ -83,8 +86,8 @@ void printCheck() {
             int menuItemNrPas1 = menuItemNrPas[i];
             int servingNr1 = servingNr[i];
             fout<<servingNr1<<" "<<left<<setw(itemWidth)<<menuList[menuItemNrPas1].menuItem<<right<<setw(priceWidth)<<menuList[menuItemNrPas1].menuPrice*servingNr1<<endl;
-            pvmMokesciai+=(menuList[menuItemNrPas1].menuPrice*servingNr1)*pvm;
         }
+    fout<<endl;
     fout<<left<<setw(itemWidth+2)<<"Mokesciai (21%)"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<pvmMokesciai<<endl;
     fout<<left<<setw(itemWidth+2)<<"Galutine suma"<<right<<setw(priceWidth)<<fixed<<setprecision(2)<<finalPrice<<endl;
     fout.close();
@@ -97,6 +100,7 @@ int main() {
     do {
         showMenu();
         cin>>pasirinkimas;
+        cout<<endl;
         switch (pasirinkimas) {
             case 1:
             {
