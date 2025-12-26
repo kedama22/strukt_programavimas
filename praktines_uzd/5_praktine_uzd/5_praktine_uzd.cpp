@@ -1,28 +1,56 @@
 #include <iostream>
+#include <vector>
 #include <fstream>
 
 using namespace std;
 
-const FIN[]="testData.txt";
-const FOUT[]="results.txt";
+const char FIN[]="testData.txt";
+const char FOUT[]="results.txt";
 
-void klasesStatistika {
+struct Student {
+    string studentID;
+    string studentAtsakymai;
+    double studentGrade;
+};
+
+void inputFailas() {
+    vector<Student> studentai;
+    ifstream fin(FIN);
+    if (fin.fail()) {
+        cout<<"Nepavyko atidaryti failo"<<endl;
+        return;
+    }
+
+
+
+    while (!fin.eof()) {
+        getline (fin,klausimuAts.push_back(),','); /* ?????? */
+    }
 
 }
 
-void studentoPaieskaID {
+void klasesStatistika() {
 
 }
 
-void OutputFailas {
+void studentoPaieskaID() {
+    int studentoIdPaieska;
+    cout<<"Iveskite studento ID:";
+    cin>>studentoIdPaieska;
+    do {
+
+    } while (studentoIdPaieska!=0);
+}
+
+void outputFailas() {
 
 }
 
-void klausimuStatistika {
+void klausimuStatistika() {
 
 }
 
-void sunkiausiasKlausimas {
+void sunkiausiasKlausimas() {
 
 }
 
