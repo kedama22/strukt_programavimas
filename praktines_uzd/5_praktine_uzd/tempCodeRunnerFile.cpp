@@ -1,2 +1,4 @@
-    // double pazymioProcentai_vidurkis = 0;
-    // double pazymioVidurkis = 0;
+            // else {
+            //     cout<<"Faile ivestas neteisingas atsakymas"<<endl;
+            //     break;
+            // }
