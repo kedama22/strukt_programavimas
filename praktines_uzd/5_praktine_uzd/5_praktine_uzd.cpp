@@ -65,10 +65,7 @@ void pasirinkimoMenu() {
     cout<<"Iveskite pasirinkima: ";
 }
 
-void studentoPazymys(double &vidurkisProcentu, double &vidurkisPazymiu) {
-    double pazymioProcentai_vidurkis=0;
-    double pazymioVidurkis=0;
-
+void studentoPazymys() {
     for (auto i=studentai.begin(); i!=studentai.end(); i++) {
         //skaiciuojami pazymiai
         double pazymioProcentai=0;
@@ -85,9 +82,6 @@ void studentoPazymys(double &vidurkisProcentu, double &vidurkisPazymiu) {
                 continue;
             }
         }
-        pazymioProcentai=(static_cast<double>(pazymioTaskai)/40)*100;
-        i->studentGradeProcent=pazymioProcentai;
-        pazymioProcentai_vidurkis+=pazymioProcentai;
         if (pazymioProcentai>=95 && pazymioProcentai<=100) pazymys=10;
         else if (pazymioProcentai>=85) pazymys=9;
         else if (pazymioProcentai>=75) pazymys=8;
@@ -98,9 +92,19 @@ void studentoPazymys(double &vidurkisProcentu, double &vidurkisPazymiu) {
         else if (pazymioProcentai>=25) pazymys=3;
         else if (pazymioProcentai>=15) pazymys=2;
         else if (pazymioProcentai>=0 && pazymioProcentai<=14) pazymys=1;
+        i->studentGrade=pazymys;        
+        pazymioProcentai=(static_cast<double>(pazymioTaskai)/40)*100;
+        i->studentGradeProcent=pazymioProcentai;
 
-        i->studentGrade=pazymys;
-        pazymioVidurkis+=pazymys;
+    }
+}
+
+void studentuPazymiuVidurkiai(double &vidurkisProcentu, double&vidurkisPazymiu) {
+    double pazymioProcentai_vidurkis=0;
+    double pazymioVidurkis=0;
+    for (auto i=studentai.begin(); i!=studentai.end(); i++) {
+        pazymioProcentai_vidurkis+=i->studentGradeProcent;
+        pazymioVidurkis+=i->studentGrade;
     }
     vidurkisProcentu=pazymioProcentai_vidurkis/studentai.size();
     vidurkisPazymiu=pazymioVidurkis/studentai.size();
@@ -110,7 +114,7 @@ void klasesStatistika() {
     double pazymioProcentai_vidurkis = 0;
     double pazymioVidurkis = 0;
 
-    studentoPazymys(pazymioProcentai_vidurkis, pazymioVidurkis);
+    studentoPazymys();
 // 1. STUDENTU SK
     cout<<"Studentu sk.: "<<studentai.size()<<endl;
 
@@ -130,6 +134,7 @@ void klasesStatistika() {
     cout<<"Didziausias pazymys: "<<didziausiasPazymys<<"\n"<<"Maziausias pazymys: "<<maziausiasPazymys<<endl; //ISTRINTI
 
 // 3. VIDUTINIS PAZYMYS/PROCENTAS
+    studentuPazymiuVidurkiai(pazymioProcentai_vidurkis, pazymioVidurkis);
     cout<<"Vidutinis pazymys: "<<fixed<<setprecision(1)<<pazymioVidurkis<<endl;
     cout<<"Vidutinis procentas: "<<fixed<<setprecision(1)<<pazymioProcentai_vidurkis<<endl;
 
@@ -176,13 +181,35 @@ void studentoPaieskaID() {
 
 void outputFailas() {
     ofstream fout(FOUT);
-    for (int i=0; i>5; i++) {
-
+    int studentoSk=1;
+    for (auto i=studentai.begin(); i!=studentai.end(); i++) {
+        fout<<studentoSk<<") "<<i->studentID<<" "<<i->studentAtsakymai<<" "<<i->studentGrade<<" ("<<i->studentGradeProcent<<"%)"<<endl;
+        studentoSk++;
     }
+    fout.close();
 }
 
 void klausimuStatistika() {
-
+    int formatavimas=11;
+    int klausimuSk=20;
+    int klausimoIndex=klausimuSk-1;
+    int atsakytiKlausimai[20][3]={0};
+    cout<<left<<setw(formatavimas)<<"Klausimas"<<left<<setw(formatavimas)<<"Teisingai"<<left<<setw(formatavimas+2)<<"Neteisingai"<<"Neatsake"<<endl;
+    for (int j=1; j<=klausimuSk; j++ ) { //gal reikia klausimuSk+1 ????????
+        for (auto i=studentai.begin(); i!=studentai.end(); i++) {
+            if (i->studentAtsakymai[j-1]==teisingi_ats[j-1]) {
+                atsakytiKlausimai[j-1][0]++;
+            }
+            else if (i->studentAtsakymai[j-1]=='-') {
+                atsakytiKlausimai[j-1][2]++;
+            }
+            else {
+                atsakytiKlausimai[j-1][1]++;
+            }
+        }
+        cout<<left<<setw(formatavimas)<<j<<left<<setw(formatavimas)<<atsakytiKlausimai[j-1][0]<<left<<setw(formatavimas)<<atsakytiKlausimai[j-1][1]<<atsakytiKlausimai[j-1][2]<<endl;
+    }
+    cout<<endl;
 }
 
 void sunkiausiasKlausimas() {
@@ -191,10 +218,12 @@ void sunkiausiasKlausimas() {
 
 int main() {
     int pasirinkimas;
-    inputFailas();    
+    inputFailas();
+    studentoPazymys();
     do {
         pasirinkimoMenu();
         cin>>pasirinkimas;
+        cout<<endl;
         switch (pasirinkimas) {
             case 1: {
                 klasesStatistika();
@@ -220,5 +249,6 @@ int main() {
             break;
         }
     } while (pasirinkimas!=5);
+    outputFailas();
     return 0;
 }
